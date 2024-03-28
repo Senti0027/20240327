@@ -4,34 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>質數列表</title>
+    <title>5B0G0027邱品毓，質數列表</title>
     <script>
         function checkPrime() {
-            let n = Number(document.getElementById("myNumber").value)
-            let primes = [];
+            let n = Number(document.getElementById("myNumber").value)//為input之數值
+            let primes = [];//來儲存變數
             let msg = "質數列表:";
-            if (isNaN(n) || n < 2) window.alert("請輸入一個大於2的數值")
+            if (isNaN(n) || n < 2) window.alert("請輸入一個大於2的數值")//假設輸入的質為假設輸入的質為非數值或非整數，則跳出彈窗讓使用者重新輸入
             else {//檢察介於2~n之間的所有質數    
-                for (let i = 2; i <= n; i++) {
+                for (let i = 2; i <= n; i++) {//2~n之間的數字
                     if (isPrime(i)) {
                         primes.push(i);
-                        msg += `<span style="color:lightblue; border:2px dotted blue; padding:2px; ">${i}</span> `;
+                        msg += `<span style="color:red; font-weight:bold; ">${i}</span> `;//當為質數(true)時，字體為紅色粗體字
                     }
-                    else msg += `<span style="color:black; ">${i}</span> `;
+                    else msg += `<span style="color:black; ">${i}</span> `;//當為合數時(false)時，字體為黑色
                 }
                 msg += "<br/>";
                 //新增所有質數倍數的列表
-                let cs = Math.trunc(360 / primes.length)
                 for (let i = 0; i < primes.length; i++) {
-                    msg += `<span style="color:hsl(${i * cs}, 100%, 50%) ">${primes[i]}的倍數:</span>`;
+                    msg += `<span style="color:black ">${primes[i]}的倍數:</span>`;
+                    let color_num=0;//作為hsl的hue，換到下一行就從0開始計算
                     for (let k = primes[i]; k <= n; k += primes[i]) {
-                        msg += `<span style="color:hsl(${k * cs}, 100%, 50%); ">${k} </span>`;
+                        msg += `<span style="color:hsl(${color_num}, 100%, 50%); ">${k} </span>`;
+                        color_num+=20;//每多一個質數的倍數就+20來改變顏色
                     }
                     msg += "<br/>";
                 }
                 msg += "<br/>"
             }
-            document.getElementById("result").innerHTML = msg;
+            document.getElementById("result").innerHTML = msg;//顯示結果
 
         }
         function isPrime(num) {
@@ -40,7 +41,6 @@
                 if (num % i == 0) return false;
             }
             return true;
-
         }
     </script>
     <style>
